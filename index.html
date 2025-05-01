@@ -189,11 +189,11 @@
 
       confirmContent.innerHTML = `
         <h3>กรุณาตรวจสอบข้อมูลก่อนยืนยัน</h3>
-        <p><strong>วันที่:</strong> ${date}</p>
-        <p><strong>ประเภท:</strong> ${type}</p>
-        <p><strong>เลข:</strong> ${number}</p>
-        <p><strong>จำนวน:</strong> ${amount} บาท</p>
-        <p><strong>ผู้ซื้อ:</strong> ${buyer}</p>
+        <p><strong>งวดประจำวันที่ :</strong> ${date}</p>
+        <p><strong>ประเภท :</strong> ${type}</p>
+        <p><strong>เลข :</strong> ${number}</p>
+        <p><strong>จำนวน :</strong> ${amount} บาท</p>
+        <p><strong>ผู้ซื้อ :</strong> ${buyer}</p>
       `;
       confirmPopup.style.display = "block";
       overlay.style.display = "block";
@@ -208,11 +208,11 @@
       confirmPopup.style.display = "none";
       popupContent.innerHTML = `
         <h3>บันทึกการซื้อสำเร็จ</h3>
-        <p><strong>วันที่:</strong> ${latestPurchase.date}</p>
-        <p><strong>ประเภท:</strong> ${latestPurchase.type}</p>
-        <p><strong>เลข:</strong> ${latestPurchase.number}</p>
-        <p><strong>จำนวน:</strong> ${latestPurchase.amount} บาท</p>
-        <p><strong>ผู้ซื้อ:</strong> ${latestPurchase.buyer}</p>
+        <p><strong>งวดประจำวันที่ :</strong> ${latestPurchase.date}</p>
+        <p><strong>ประเภท :</strong> ${latestPurchase.type}</p>
+        <p><strong>เลข :</strong> ${latestPurchase.number}</p>
+        <p><strong>จำนวน :</strong> ${latestPurchase.amount} บาท</p>
+        <p><strong>ผู้ซื้อ :</strong> ${latestPurchase.buyer}</p>
         <p style="margin-top:15px; font-weight: 500; color: #4CAF50;">ขอให้รวยๆ ถูกหวยรางวัลใหญ่ ✨</p>
       `;
       popup.style.display = "block";
