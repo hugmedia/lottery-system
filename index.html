@@ -119,11 +119,11 @@
         <label>ประเภทหวย</label>
         <select id="lotteryType" required>
           <option value="">เลือกประเภท</option>
-          <option value="หัว-ท้าย">หัว-ท้าย (รางวัลที่ 1)</option>
-          <option value="หัว">หัว (3 ตัวหน้า)</option>
-          <option value="ท้าย">ท้าย (3 ตัวหลัง)</option>
-          <option value="2ตัวบน-ล่าง">2 ตัว บน-ล่าง</option>
-          <option value="2ตัวบน">2 ตัว บน</option>
+          <option value="หัว-ท้าย (รางวัลที่ 1)">หัว-ท้าย (รางวัลที่ 1)</option>
+          <option value="หัว (3 ตัวหน้า รางวัลที่ 1)">หัว (3 ตัวหน้า รางวัลที่ 1)</option>
+          <option value="ท้าย (3 ตัวหลัง รางวัลที่ 1)">ท้าย (3 ตัวหลัง รางวัลที่ 1)</option>
+          <option value="2 ตัว บน-ล่าง">2 ตัว บน-ล่าง</option>
+          <option value="2 ตัว บน">2 ตัว บน</option>
         </select>
       </div>
       <div class="row-split">
@@ -220,7 +220,7 @@
           if (navigator.canShare && navigator.canShare({ files: [file] })) {
             navigator.share({
               title: 'บันทึกหวยของฉัน',
-              text: 'เฮงๆ รวยๆ ค้าบบผม..!',
+              text: 'งวดนี้ ปังแน่นอน... เฮงๆ รวยๆ ค้าบบบ!',
               files: [file],
             });
           } else {
@@ -260,7 +260,7 @@
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           navigator.share({
             title: 'บันทึกหวยของฉัน',
-            text: 'เฮงๆ รวยๆ ค้าบบบ..!',
+            text: 'งวดนี้ ปังแน่นอน... เฮงๆ รวยๆ ค้าบบบ!',
             files: [file],
           });
         } else {
