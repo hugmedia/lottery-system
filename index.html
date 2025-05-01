@@ -1,146 +1,111 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>วันนี้รวย...</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500&display=swap');
+        * {
+            font-family: 'Prompt', sans-serif;
+            box-sizing: border-box;
+        }
         body {
-            font-family: 'Prompt', Arial, sans-serif;
-            font-weight: 400;
-            margin: 0;
-            padding: 20px;
             background-color: #f7f7f7;
-            color: #333;
-            font-size: clamp(14px, 2.5vw, 16px);
+            padding: 20px;
+            margin: 0;
         }
         .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            max-width: min(90vw, 600px);
-            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
         h1 {
-            font-family: 'Prompt', Arial, sans-serif;
-            font-weight: 500;
-            font-size: clamp(20px, 4vw, 24px);
             text-align: center;
-            margin-bottom: 25px;
+            font-size: 28px;
             color: #222;
+            margin-bottom: 30px;
         }
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
         label {
-            font-family: 'Prompt', Arial, sans-serif;
-            font-weight: 400;
             display: block;
-            font-size: clamp(12px, 2.2vw, 14px);
             margin-bottom: 8px;
-            color: #444;
+            font-weight: 500;
         }
-        input[type="text"], input[type="date"], select {
-            font-family: 'Prompt', Arial, sans-serif;
-            font-weight: 400;
+        input, select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: clamp(12px, 2.2vw, 14px);
-            background-color: #fafafa;
-            box-sizing: border-box;
-            transition: border-color 0.2s, background-color 0.2s;
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
         }
-        input:focus, select:focus {
-            outline: none;
-            border-color: #4CAF50;
-            background-color: #fff;
+        .row-split {
+            display: flex;
+            gap: 15px;
+        }
+        .row-split .form-group {
+            flex: 1;
         }
         button {
-            font-family: 'Prompt', Arial, sans-serif;
-            font-weight: 500;
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 12px;
+            background: #4CAF50;
+            color: white;
             border: none;
-            border-radius: 8px;
-            font-size: clamp(14px, 2.5vw, 16px);
-            cursor: pointer;
+            padding: 14px;
+            font-size: 18px;
+            border-radius: 10px;
             width: 100%;
-            transition: background-color 0.2s;
+            cursor: pointer;
         }
-        button:hover {
-            background-color: #45a049;
-        }
-        #result {
-            font-family: 'Prompt', Arial, sans-serif;
-            font-weight: 400;
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            background-color: #fafafa;
-            font-size: clamp(12px, 2.2vw, 14px);
-            display: none;
-        }
-        .success-message {
-            font-family: 'Prompt', Arial, sans-serif;
-            font-weight: 400;
+        #popup {
             display: none;
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             z-index: 1000;
-            align-items: center;
-            gap: 8px;
-            font-size: clamp(12px, 2.2vw, 14px);
+            text-align: center;
+            max-width: 90vw;
+            width: 360px;
         }
-        .success-message.show {
-            display: flex;
-        }
-        .success-icon {
-            width: 16px;
-            height: 16px;
-            background-color: #fff;
+        .check-icon {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
+            background-color: #4CAF50;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #4CAF50;
-            font-weight: bold;
-            font-size: 10px;
+            color: white;
+            font-size: 32px;
+            margin: 0 auto 15px auto;
         }
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            .container {
-                padding: 15px;
-            }
-            .success-message {
-                top: 10px;
-                right: 10px;
-                padding: 6px 12px;
-            }
+        #popupContent {
+            margin-bottom: 15px;
         }
-        @media (max-width: 480px) {
-            h1 {
-                margin-bottom: 20px;
-            }
-            .form-group {
-                margin-bottom: 15px;
-            }
-            button {
-                padding: 10px;
-            }
+        #popup .hide-when-download button {
+            margin-top: 15px;
+            background: #4CAF50;
+            font-size: 16px;
+        }
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.4);
+            z-index: 999;
         }
     </style>
 </head>
@@ -152,7 +117,6 @@
                 <label>งวดประจำวันที่</label>
                 <input type="date" id="lotteryDate" required>
             </div>
-
             <div class="form-group">
                 <label>ประเภทหวย</label>
                 <select id="lotteryType" required>
@@ -164,126 +128,101 @@
                     <option value="2ตัวบน">2 ตัว บน</option>
                 </select>
             </div>
-
-            <div class="form-group">
-                <label>ตัวเลข</label>
-                <input type="text" id="numbers" inputmode="numeric" pattern="[0-9]*" placeholder="เช่น 123 หรือ 12" required>
+            <div class="row-split">
+                <div class="form-group">
+                    <label>ตัวเลข</label>
+                    <input type="text" id="numbers" required>
+                </div>
+                <div class="form-group">
+                    <label>จำนวนเงิน</label>
+                    <input type="text" id="amount" required>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label>จำนวนเงิน (บาท)</label>
-                <input type="text" id="amount" inputmode="numeric" pattern="[0-9]*" placeholder="เช่น 100" required>
-            </div>
-
             <div class="form-group">
                 <label>ชื่อผู้ซื้อ</label>
-                <input type="text" id="buyerName" placeholder="กรอกชื่อผู้ซื้อ" required>
+                <input type="text" id="buyerName" required>
             </div>
-
             <button type="submit">บันทึกการซื้อ</button>
         </form>
-
-        <div id="result"></div>
     </div>
 
-    <div id="successMessage" class="success-message">
-        <span class="success-icon">✓</span>
-        <span>บันทึกสำเร็จ</span>
+    <div id="overlay"></div>
+    <div id="popup">
+        <div class="check-icon">✓</div>
+        <div id="popupContent"></div>
+        <div class="hide-when-download">
+            <button onclick="downloadPopupImage()">📥 ดาวน์โหลดภาพ</button>
+        </div>
     </div>
 
     <script>
-        // Web App URL จาก GAS
         const GOOGLE_SHEET_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyDPjnGQzW-rSlLGvxS20WwR8GkBmUy8362SLKKiT2uBPUV27cjbqZp0yx2yf8rdW3V/exec';
 
-        document.getElementById('lotteryForm').addEventListener('submit', async function(e) {
+        const form = document.getElementById('lotteryForm');
+        const popup = document.getElementById('popup');
+        const popupContent = document.getElementById('popupContent');
+        const overlay = document.getElementById('overlay');
+        const hideWhenDownload = document.querySelector('.hide-when-download');
+
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
+            const date = new Date(document.getElementById('lotteryDate').value).toLocaleDateString('th-TH');
+            const type = document.getElementById('lotteryType').value;
+            const number = document.getElementById('numbers').value;
+            const amount = parseInt(document.getElementById('amount').value);
+            const buyer = document.getElementById('buyerName').value;
 
-            const lotteryDate = document.getElementById('lotteryDate').value;
-            const lotteryType = document.getElementById('lotteryType').value;
-            const numbers = document.getElementById('numbers').value;
-            const amount = document.getElementById('amount').value;
-            const buyerName = document.getElementById('buyerName').value;
+            const purchase = {
+                lotteryDate: date,
+                lotteryType: type,
+                numbers: number,
+                amount: amount,
+                buyerName: buyer,
+                timestamp: new Date().toLocaleString('th-TH')
+            };
 
-            // ตรวจสอบว่าตัวเลขและจำนวนเงินเป็นตัวเลขเท่านั้น
-            if (!/^\d+$/.test(numbers)) {
-                alert('กรุณากรอกตัวเลขเท่านั้นในช่องตัวเลข');
-                return;
-            }
-            if (!/^\d+$/.test(amount)) {
-                alert('กรุณากรอกตัวเลขเท่านั้นในช่องจำนวนเงิน');
-                return;
-            }
-
-            // ตรวจสอบความยาวตัวเลขตามประเภทหวย
-            let isValid = true;
-            if (lotteryType.includes('3ตัว') && !/^\d{3}$/.test(numbers)) {
-                isValid = false;
-                alert('กรุณากรอกตัวเลข 3 หลักสำหรับประเภทนี้');
-            } else if (lotteryType.includes('2ตัว') && !/^\d{2}$/.test(numbers)) {
-                isValid = false;
-                alert('กรุณากรอกตัวเลข 2 หลักสำหรับประเภทนี้');
-            }
-
-            if (isValid) {
-                // แปลงวันที่เป็นรูปแบบภาษาไทย
-                const date = new Date(lotteryDate);
-                const formattedDate = date.toLocaleDateString('th-TH', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
+            try {
+                await fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(purchase)
                 });
-
-                const resultDiv = document.getElementById('result');
-                resultDiv.style.display = 'block';
-                resultDiv.innerHTML = `
-                    <h3>รายละเอียดการซื้อ</h3>
-                    <p><strong>งวดประจำวันที่:</strong> ${formattedDate}</p>
-                    <p><strong>ประเภท:</strong> ${lotteryType}</p>
-                    <p><strong>ตัวเลข:</strong> ${numbers}</p>
-                    <p><strong>จำนวนเงิน:</strong> ${amount} บาท</p>
-                    <p><strong>ผู้ซื้อ:</strong> ${buyerName}</p>
-                    <p><strong>วันที่ซื้อ:</strong> ${new Date().toLocaleString('th-TH')}</p>
-                `;
-
-                // สำรองข้อมูลใน localStorage
-                const backupData = {
-                    lotteryDate: formattedDate,
-                    lotteryType,
-                    numbers,
-                    amount,
-                    buyerName,
-                    timestamp: new Date().toLocaleString('th-TH')
-                };
-                const backups = JSON.parse(localStorage.getItem('lotteryBackups') || '[]');
-                backups.push(backupData);
-                localStorage.setItem('lotteryBackups', JSON.stringify(backups));
-
-                // ส่งข้อมูลไป Google Sheets
-                try {
-                    const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(backupData)
-                    });
-
-                    // แสดงข้อความบันทึกสำเร็จ
-                    const successMessage = document.getElementById('successMessage');
-                    successMessage.classList.add('show');
-                    setTimeout(() => {
-                        successMessage.classList.remove('show');
-                    }, 3000);
-
-                    // รีเซ็ตฟอร์ม
-                    this.reset();
-                } catch (error) {
-                    console.error('Error sending data to Google Sheets:', error);
-                    alert('เกิดข้อผิดพลาดในการบันทึกข้อมูลไปยัง Google Sheets กรุณาตรวจสอบ Web App URL หรือการตั้งค่า Google Apps Script ข้อมูลได้ถูกสำรองไว้ในเครื่องแล้ว');
-                }
+            } catch (err) {
+                console.error('Google Sheets error', err);
             }
+
+            popupContent.innerHTML = `
+                <h3>บันทึกการซื้อสำเร็จ</h3>
+                <p><strong>งวดวันที่ :</strong> ${date}</p>
+                <p><strong>ประเภท :</strong> ${type}</p>
+                <p><strong>เลข :</strong> ${number}</p>
+                <p><strong>จำนวน :</strong> ${amount} บาท</p>
+                <p><strong>ผู้ซื้อ :</strong> ${buyer}</p>
+                <p style="margin-top:15px; font-weight: 500; color: #4CAF50;">ขอให้รวยๆ ถูกหวยรางวัลใหญ่ ✨</p>
+            `;
+
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
         });
+
+        function closePopup() {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+            form.reset();
+        }
+
+        function downloadPopupImage() {
+            hideWhenDownload.style.display = 'none';
+            html2canvas(popup).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'lottery-info.png';
+                link.href = canvas.toDataURL();
+                link.click();
+                hideWhenDownload.style.display = 'block';
+                closePopup();
+            });
+        }
     </script>
 </body>
 </html>
