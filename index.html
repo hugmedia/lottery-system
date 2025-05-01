@@ -2,227 +2,233 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>วันนี้รวย...</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500&display=swap');
-        * {
-            font-family: 'Prompt', sans-serif;
-            box-sizing: border-box;
-        }
-        body {
-            background-color: #f7f7f7;
-            padding: 20px;
-            margin: 0;
-        }
-        .container {
-            background: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 600px;
-            margin: auto;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-        h1 {
-            text-align: center;
-            font-size: 28px;
-            color: #222;
-            margin-bottom: 30px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        input, select {
-            width: 100%;
-            padding: 14px;
-            font-size: 16px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-        }
-        .row-split {
-            display: flex;
-            gap: 15px;
-        }
-        .row-split .form-group {
-            flex: 1;
-        }
-        button {
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 14px;
-            font-size: 18px;
-            border-radius: 10px;
-            width: 100%;
-            cursor: pointer;
-        }
-        #popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 1000;
-            text-align: center;
-            max-width: 90vw;
-            width: 360px;
-        }
-        .check-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #4CAF50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 32px;
-            margin: 0 auto 15px auto;
-        }
-        #popupContent {
-            margin-bottom: 15px;
-        }
-        #popup .hide-when-download button {
-            margin-top: 15px;
-            background: #4CAF50;
-            font-size: 16px;
-        }
-        #overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.4);
-            z-index: 999;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>วันนี้รวย...</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500&display=swap');
+    * {
+      font-family: 'Prompt', sans-serif;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #f7f7f7;
+      padding: 20px;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      color: #222;
+      margin-bottom: 30px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    input, select {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+    }
+    .row-split {
+      display: flex;
+      gap: 15px;
+    }
+    .row-split .form-group {
+      flex: 1;
+    }
+    button {
+      padding: 14px;
+      font-size: 18px;
+      border-radius: 10px;
+      width: 100%;
+      cursor: pointer;
+    }
+    .btn-red {
+      background: #f44336;
+      color: white;
+      border: none;
+    }
+    .btn-green {
+      background: #4CAF50;
+      color: white;
+      border: none;
+    }
+    #popup, #confirmPopup {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 1000;
+      text-align: center;
+      max-width: 90vw;
+      width: 360px;
+    }
+    .check-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #4CAF50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 32px;
+      margin: 0 auto 15px auto;
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4);
+      z-index: 999;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>วันนี้รวย...</h1>
-        <form id="lotteryForm">
-            <div class="form-group">
-                <label>งวดประจำวันที่</label>
-                <input type="date" id="lotteryDate" required>
-            </div>
-            <div class="form-group">
-                <label>ประเภทหวย</label>
-                <select id="lotteryType" required>
-                    <option value="">เลือกประเภท</option>
-                    <option value="หัว-ท้าย">หัว-ท้าย (รางวัลที่ 1)</option>
-                    <option value="หัว">หัว (3 ตัวหน้า รางวัลที่ 1)</option>
-                    <option value="ท้าย">ท้าย (3 ตัวหลัง รางวัลที่ 1)</option>
-                    <option value="2ตัวบน-ล่าง">2 ตัว บน-ล่าง</option>
-                    <option value="2ตัวบน">2 ตัว บน</option>
-                </select>
-            </div>
-            <div class="row-split">
-                <div class="form-group">
-                    <label>ตัวเลข</label>
-                    <input type="text" id="numbers" required>
-                </div>
-                <div class="form-group">
-                    <label>จำนวนเงิน</label>
-                    <input type="text" id="amount" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>ชื่อผู้ซื้อ</label>
-                <input type="text" id="buyerName" required>
-            </div>
-            <button type="submit">บันทึกการซื้อ</button>
-        </form>
-    </div>
-
-    <div id="overlay"></div>
-    <div id="popup">
-        <div class="check-icon">✓</div>
-        <div id="popupContent"></div>
-        <div class="hide-when-download">
-            <button onclick="downloadPopupImage()">📥 ดาวน์โหลดภาพ</button>
+  <div class="container">
+    <h1>วันนี้รวย...</h1>
+    <form id="lotteryForm">
+      <div class="form-group">
+        <label>งวดประจำวันที่</label>
+        <input type="date" id="lotteryDate" required>
+      </div>
+      <div class="form-group">
+        <label>ประเภทหวย</label>
+        <select id="lotteryType" required>
+          <option value="">เลือกประเภท</option>
+          <option value="หัว-ท้าย">หัว-ท้าย (รางวัลที่ 1)</option>
+          <option value="หัว">หัว (3 ตัวหน้า)</option>
+          <option value="ท้าย">ท้าย (3 ตัวหลัง)</option>
+          <option value="2ตัวบน-ล่าง">2 ตัว บน-ล่าง</option>
+          <option value="2ตัวบน">2 ตัว บน</option>
+        </select>
+      </div>
+      <div class="row-split">
+        <div class="form-group">
+          <label>ตัวเลข</label>
+          <input type="text" id="numbers" required>
         </div>
+        <div class="form-group">
+          <label>จำนวนเงิน</label>
+          <input type="text" id="amount" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>ชื่อผู้ซื้อ</label>
+        <input type="text" id="buyerName" required>
+      </div>
+      <button class="btn-green" type="submit">บันทึกการซื้อ</button>
+    </form>
+  </div>
+
+  <div id="overlay"></div>
+
+  <div id="confirmPopup">
+    <div id="confirmContent"></div>
+    <div class="action-buttons">
+      <button class="btn-red" onclick="editForm()">แก้ไข</button>
+      <button class="btn-green" onclick="confirmSubmission()">ยืนยัน</button>
     </div>
+  </div>
 
-    <script>
-        const GOOGLE_SHEET_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyDPjnGQzW-rSlLGvxS20WwR8GkBmUy8362SLKKiT2uBPUV27cjbqZp0yx2yf8rdW3V/exec';
+  <div id="popup">
+    <div class="check-icon">✓</div>
+    <div id="popupContent"></div>
+    <div class="hide-when-download" style="margin-top:20px;">
+      <button class="btn-green" onclick="downloadPopupImage()">📥 ดาวน์โหลดภาพ</button>
+    </div>
+  </div>
 
-        const form = document.getElementById('lotteryForm');
-        const popup = document.getElementById('popup');
-        const popupContent = document.getElementById('popupContent');
-        const overlay = document.getElementById('overlay');
-        const hideWhenDownload = document.querySelector('.hide-when-download');
+  <script>
+    const overlay = document.getElementById("overlay");
+    const popup = document.getElementById("popup");
+    const popupContent = document.getElementById("popupContent");
+    const confirmPopup = document.getElementById("confirmPopup");
+    const confirmContent = document.getElementById("confirmContent");
+    const form = document.getElementById("lotteryForm");
 
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const date = new Date(document.getElementById('lotteryDate').value).toLocaleDateString('th-TH');
-            const type = document.getElementById('lotteryType').value;
-            const number = document.getElementById('numbers').value;
-            const amount = parseInt(document.getElementById('amount').value);
-            const buyer = document.getElementById('buyerName').value;
+    let latestPurchase = {};
 
-            const purchase = {
-                lotteryDate: date,
-                lotteryType: type,
-                numbers: number,
-                amount: amount,
-                buyerName: buyer,
-                timestamp: new Date().toLocaleString('th-TH')
-            };
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const date = new Date(document.getElementById("lotteryDate").value).toLocaleDateString('th-TH');
+      const type = document.getElementById("lotteryType").value;
+      const number = document.getElementById("numbers").value;
+      const amount = document.getElementById("amount").value;
+      const buyer = document.getElementById("buyerName").value;
 
-            try {
-                await fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(purchase)
-                });
-            } catch (err) {
-                console.error('Google Sheets error', err);
-            }
+      latestPurchase = { date, type, number, amount, buyer };
 
-            popupContent.innerHTML = `
-                <h3>บันทึกการซื้อสำเร็จ</h3>
-                <p><strong>งวดวันที่ :</strong> ${date}</p>
-                <p><strong>ประเภท :</strong> ${type}</p>
-                <p><strong>เลข :</strong> ${number}</p>
-                <p><strong>จำนวน :</strong> ${amount} บาท</p>
-                <p><strong>ผู้ซื้อ :</strong> ${buyer}</p>
-                <p style="margin-top:15px; font-weight: 500; color: #4CAF50;">ขอให้รวยๆ ถูกหวยรางวัลใหญ่ ✨</p>
-            `;
+      confirmContent.innerHTML = `
+        <h3>กรุณาตรวจสอบข้อมูลก่อนยืนยัน</h3>
+        <p><strong>วันที่:</strong> ${date}</p>
+        <p><strong>ประเภท:</strong> ${type}</p>
+        <p><strong>เลข:</strong> ${number}</p>
+        <p><strong>จำนวน:</strong> ${amount} บาท</p>
+        <p><strong>ผู้ซื้อ:</strong> ${buyer}</p>
+      `;
+      confirmPopup.style.display = "block";
+      overlay.style.display = "block";
+    });
 
-            popup.style.display = 'block';
-            overlay.style.display = 'block';
-        });
+    function editForm() {
+      confirmPopup.style.display = "none";
+      overlay.style.display = "none";
+    }
 
-        function closePopup() {
-            popup.style.display = 'none';
-            overlay.style.display = 'none';
-            form.reset();
-        }
-
-        function downloadPopupImage() {
-            hideWhenDownload.style.display = 'none';
-            html2canvas(popup).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'lottery-info.png';
-                link.href = canvas.toDataURL();
-                link.click();
-                hideWhenDownload.style.display = 'block';
-                closePopup();
-            });
-        }
-    </script>
+    function confirmSubmission() {
+      confirmPopup.style.display = "none";
+      popupContent.innerHTML = `
+        <h3>บันทึกการซื้อสำเร็จ</h3>
+        <p><strong>วันที่:</strong> ${latestPurchase.date}</p>
+        <p><strong>ประเภท:</strong> ${latestPurchase.type}</p>
+        <p><strong>เลข:</strong> ${latestPurchase.number}</p>
+        <p><strong>จำนวน:</strong> ${latestPurchase.amount} บาท</p>
+        <p><strong>ผู้ซื้อ:</strong> ${latestPurchase.buyer}</p>
+        <p style="margin-top:15px; font-weight: 500; color: #4CAF50;">ขอให้รวยๆ ถูกหวยรางวัลใหญ่ ✨</p>
+      `;
+      popup.style.display = "block";
+    }
+  </script>
 </body>
+</html>
+
+<script>
+function downloadPopupImage() {
+  html2canvas(document.getElementById("popup")).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'lottery-info.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+}
+</script>
 </html>
