@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <title>บันทึกรายการหวย</title>
+  <title>ระบบบันทึกรายการขายหวย</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Prompt :wght@400;500;700&display=swap');
     * {
@@ -100,12 +100,12 @@
       transform: translate(-50%, -50%);
       background: #ffffff;
       border-radius: 15px;
-      padding: 40px;
+      padding: 30px;
       box-shadow: 0 6px 30px rgba(0,0,0,0.2);
       z-index: 1000;
       text-align: center;
-      max-width: 95vw;
-      width: 500px;
+      width: 90vw;
+      max-width: 500px;
     }
 
     /* Receipt Design */
@@ -146,25 +146,34 @@
       flex-wrap: wrap;
     }
 
+    .action-buttons button {
+      width: 45%;
+      min-width: 130px;
+      font-size: 16px;
+      padding: 12px;
+    }
+
     /* Responsive */
-    @media (max-width: 600px) {
-      .item-row {
-        grid-template-columns: 1fr 1fr 1fr 36px;
-      }
-
-      .item-row select,
-      .item-row input {
-        font-size: 14px;
-        padding: 8px;
-      }
-
-      button {
-        font-size: 14px;
-        padding: 8px 12px;
+    @media (max-width: 768px) {
+      #popup {
+        width: 95vw;
+        padding: 24px;
+        border-radius: 12px;
       }
 
       #receipt {
-        font-size: 15px;
+        font-size: 16px;
+        padding: 16px;
+      }
+
+      #receipt p {
+        font-size: 16px;
+      }
+
+      .action-buttons button {
+        width: 48%;
+        font-size: 16px;
+        padding: 12px;
       }
     }
   </style>
@@ -172,7 +181,7 @@
 <body>
 
   <div class="container">
-    <h1>วันนี้รวย....</h1>
+    <h1>✨วันนี้รวย....</h1>
 
     <div class="form-group">
       <label for="lotteryDate">งวดประจำวันที่</label>
@@ -358,7 +367,7 @@
           navigator.clipboard.write(item).then(() => {
             alert("ใบเสร็จถูกคัดลอกไปที่คลิปบอร์ดแล้ว คุณสามารถกด Ctrl+V หรือแชร์ได้เลย!");
           }).catch(err => {
-            alert("ไม่สามารถคัดลอกใบเสร็จได้ กรุณาใช้ปุ่มดาวน์โหลดแทน");
+            alert("ไม่สามารถคัดลอกใบเสร็จได้ กรุณาดาวน์โหลดแทน");
           });
         });
       });
