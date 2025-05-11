@@ -11,11 +11,6 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="ขายหวย">
 
-  <!-- Manifest -->
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icon-192x192.png" type="image/png">
-  <link rel="apple-touch-icon" href="icon-192x192.png">
-
   <!-- Fonts -->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Prompt :wght@400;500;700&display=swap');
@@ -90,6 +85,7 @@
       height: 36px;
     }
 
+    /* Items List */
     .items-container {
       display: flex;
       flex-direction: column;
@@ -97,20 +93,22 @@
     }
 
     .item-row {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 50px;
+      display: flex;
+      flex-direction: column;
       gap: 10px;
-      align-items: center;
-      padding: 12px;
+      align-items: stretch;
+      padding: 14px;
       background: #f9f9f9;
       border-radius: 10px;
     }
 
+    .item-row select,
     .item-row input,
-    .item-row select {
-      margin: 0;
+    .item-row button {
+      width: 100%;
     }
 
+    /* Popup */
     #popup {
       display: none;
       position: fixed;
@@ -124,6 +122,19 @@
       text-align: center;
       width: 90vw;
       max-width: 500px;
+    }
+
+    .check-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #2ecc71;
+      color: white;
+      font-size: 30px;
+      margin: 0 auto 15px auto;
     }
 
     #receipt {
@@ -148,19 +159,6 @@
       margin: 15px 0;
     }
 
-    .check-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background-color: #2ecc71;
-      color: white;
-      font-size: 30px;
-      margin: 0 auto 15px auto;
-    }
-
     .action-buttons {
       margin-top: 20px;
       display: flex;
@@ -178,7 +176,7 @@
 <body>
 
   <div class="container">
-    <h1>✨วันนี้รวย...</h1>
+    <h1>✨วันนี้รวย....</h1>
 
     <div class="form-group">
       <label for="lotteryDate">งวดประจำวันที่</label>
@@ -198,9 +196,6 @@
 
   <!-- Popup -->
   <div id="popup">
-    <div class="check-icon">✓</div>
-    <p style="font-size: 20px;">บันทึกสำเร็จ!</p>
-
     <div id="receipt"></div>
 
     <div class="action-buttons">
@@ -280,15 +275,41 @@
           });
         });
 
-        // สร้างใบเสร็จ
-        const fullReceiptHTML = `
-          <p><strong>ผู้ซื้อ</strong> <span>${buyerName}</span></p>
-          <p><strong>งวดประจำวันที่</strong> <span>${thaiDate}</span></p>
-          ${receiptHTML}
+        // สร้าง HTML ใบเสร็จพร้อมไอคอนและข้อความ "บันทึกสำเร็จ!"
+        const iconStyle = `
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          background-color: #2ecc71;
+          color: white;
+          font-size: 30px;
+          margin: 0 auto 15px auto;
+        `;
+
+        const headerHTML = `
+          <div style="text-align:center; margin-bottom: 20px;">
+            <div style="${iconStyle}">✓</div>
+            <h3 style="margin-top: 10px;">บันทึกการสั่งซื้อ!</h3>
+          </div>
+        `;
+
+        const footerHTML = `
           <p style="font-weight:bold; color:#e67e22; text-align:center;">รวมทั้งหมด <span>${totalAmount}</span> บาท</p>
           <p style="color:#2ecc71; font-weight:bold; text-align:center;">ขอให้โชคดี 🌟✨</p>
         `;
 
+        const fullReceiptHTML = `
+          ${headerHTML}
+          <p><strong>ผู้ซื้อ</strong> <span>${buyerName}</span></p>
+          <p><strong>งวดประจำวันที่</strong> <span>${thaiDate}</span></p>
+          ${receiptHTML}
+          ${footerHTML}
+        `;
+
+        // แสดงใบเสร็จใน popup
         const receiptDiv = document.getElementById("receipt");
         receiptDiv.innerHTML = fullReceiptHTML;
 
@@ -348,9 +369,9 @@
           const item = [new ClipboardItem({[file.type]: file})];
 
           navigator.clipboard.write(item).then(() => {
-            alert("คัดลอกใบเสร็จแล้ว คุณสามารถกด Ctrl+V หรือแชร์ได้เลย!");
+            alert("ใบเสร็จถูกคัดลอกไปที่คลิปบอร์ดแล้ว คุณสามารถกด Ctrl+V หรือแชร์ได้เลย!");
           }).catch(err => {
-            alert("คัดลอกไม่ได้ กรุณาดาวน์โหลดแทน");
+            alert("ไม่สามารถคัดลอกใบเสร็จได้ กรุณาใช้ปุ่มดาวน์โหลดแทน");
           });
         });
       });
