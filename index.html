@@ -2,7 +2,21 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <title>ระบบบันทึกรายการขายหวย</title>
+  <title>✨ระบบขายหวย</title>
+
+  <!-- Responsive & PWA -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ขายหวย">
+
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192x192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icon-192x192.png">
+
+  <!-- Fonts -->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Prompt :wght@400;500;700&display=swap');
     * {
@@ -13,54 +27,60 @@
       background-color: #f7f7f7;
       padding: 20px;
       margin: 0;
+      font-size: 16px;
     }
+
     .container {
       background: #fff;
-      padding: 30px;
-      border-radius: 15px;
-      max-width: 600px;
-      margin: auto;
+      padding: 20px;
+      border-radius: 0;
+      max-width: 100%;
+      width: 100%;
     }
+
     h1 {
       text-align: center;
-      font-size: 28px;
+      font-size: 22px;
       color: #222;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
-    .form-group {
-      margin-bottom: 15px;
-    }
+
     label {
       display: block;
       margin-bottom: 5px;
       font-weight: 500;
     }
+
     input, select {
       width: 100%;
-      padding: 10px;
-      font-size: 16px;
+      padding: 14px;
+      font-size: 18px;
       border-radius: 10px;
-      border: 1px solid #ddd;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
     }
 
     button {
-      padding: 10px 16px;
-      font-size: 16px;
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
       border-radius: 10px;
       cursor: pointer;
+      margin-top: 10px;
     }
+
     .btn-green {
       background: #4CAF50;
       color: white;
       border: none;
     }
+
     .btn-blue {
       background: #2196F3;
       color: white;
       border: none;
     }
 
-    /* Button ลบ */
     .btn-delete {
       background-color: #e74c3c;
       color: white;
@@ -70,7 +90,6 @@
       height: 36px;
     }
 
-    /* Items List */
     .items-container {
       display: flex;
       flex-direction: column;
@@ -79,28 +98,27 @@
 
     .item-row {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 40px;
+      grid-template-columns: 2fr 1fr 1fr 50px;
       gap: 10px;
       align-items: center;
-      padding: 10px;
+      padding: 12px;
       background: #f9f9f9;
       border-radius: 10px;
     }
 
-    .item-row select,
-    .item-row input {
+    .item-row input,
+    .item-row select {
       margin: 0;
     }
 
-    /* Popup */
     #popup {
       display: none;
       position: fixed;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       background: #ffffff;
-      border-radius: 15px;
-      padding: 30px;
+      border-radius: 10px;
+      padding: 24px;
       box-shadow: 0 6px 30px rgba(0,0,0,0.2);
       z-index: 1000;
       text-align: center;
@@ -108,7 +126,6 @@
       max-width: 500px;
     }
 
-    /* Receipt Design */
     #receipt {
       text-align: left;
       font-size: 16px;
@@ -131,57 +148,37 @@
       margin: 15px 0;
     }
 
-    #receipt .total {
-      margin-top: 15px;
-      font-weight: bold;
-      color: #e67e22;
-      text-align: center;
+    .check-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #2ecc71;
+      color: white;
+      font-size: 30px;
+      margin: 0 auto 15px auto;
     }
 
     .action-buttons {
       margin-top: 20px;
       display: flex;
+      flex-direction: column;
       gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
     }
 
     .action-buttons button {
-      width: 45%;
-      min-width: 130px;
-      font-size: 16px;
-      padding: 12px;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      #popup {
-        width: 95vw;
-        padding: 24px;
-        border-radius: 12px;
-      }
-
-      #receipt {
-        font-size: 16px;
-        padding: 16px;
-      }
-
-      #receipt p {
-        font-size: 16px;
-      }
-
-      .action-buttons button {
-        width: 48%;
-        font-size: 16px;
-        padding: 12px;
-      }
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h1>✨วันนี้รวย....</h1>
+    <h1>✨วันนี้รวย...</h1>
 
     <div class="form-group">
       <label for="lotteryDate">งวดประจำวันที่</label>
@@ -190,17 +187,20 @@
 
     <div class="form-group">
       <label for="buyerName">ชื่อผู้ซื้อ</label>
-      <input type="text" id="buyerName" placeholder="เช่น Pichet" required>
+      <input type="text" id="buyerName" placeholder="เช่น สมชาย" required>
     </div>
 
     <div class="items-container" id="items-container"></div>
 
     <button class="btn-blue" onclick="addItem()">+ เพิ่มรายการ</button>
-    <button class="btn-green" style="margin-top: 20px;" onclick="submitAll()">บันทึกการสั่งซื้อทั้งหมด</button>
+    <button class="btn-green" onclick="submitAll()">บันทึกการสั่งซื้อทั้งหมด</button>
   </div>
 
   <!-- Popup -->
   <div id="popup">
+    <div class="check-icon">✓</div>
+    <p style="font-size: 20px;">บันทึกสำเร็จ!</p>
+
     <div id="receipt"></div>
 
     <div class="action-buttons">
@@ -215,7 +215,6 @@
   <script>
     function addItem() {
       const container = document.getElementById("items-container");
-
       const itemDiv = document.createElement("div");
       itemDiv.className = "item-row";
       itemDiv.innerHTML = `
@@ -271,6 +270,7 @@
           receiptHTML += `<p>เลข ${number}</p>`;
           receiptHTML += `<p>จำนวน ${amount} บาท</p>`;
           receiptHTML += `<hr>`;
+
           dataToSave.push({
             date: thaiDate,
             name: buyerName,
@@ -281,24 +281,7 @@
         });
 
         // สร้างใบเสร็จ
-        const iconStyle = `
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          background-color: #2ecc71;
-          color: white;
-          font-size: 30px;
-          margin: 0 auto 15px auto;
-        `;
-
         const fullReceiptHTML = `
-          <div style="text-align:center; margin-bottom: 20px;">
-            <div style="${iconStyle}">✓</div>
-            <h3 style="margin-top: 10px;">บันทึกสำเร็จ!</h3>
-          </div>
           <p><strong>ผู้ซื้อ</strong> <span>${buyerName}</span></p>
           <p><strong>งวดประจำวันที่</strong> <span>${thaiDate}</span></p>
           ${receiptHTML}
@@ -306,7 +289,6 @@
           <p style="color:#2ecc71; font-weight:bold; text-align:center;">ขอให้โชคดี 🌟✨</p>
         `;
 
-        // แสดงใบเสร็จ
         const receiptDiv = document.getElementById("receipt");
         receiptDiv.innerHTML = fullReceiptHTML;
 
@@ -344,15 +326,16 @@
     async function downloadReceipt() {
       const receiptDiv = document.getElementById("receipt");
 
-      const canvas = await html2canvas(receiptDiv, {
+      const canvas = document.createElement("canvas");
+      html2canvas(receiptDiv, {
         backgroundColor: "#fff",
         scale: 2
+      }).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "ใบเสร็จรับเงิน.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
       });
-
-      const link = document.createElement("a");
-      link.download = "ใบเสร็จรับเงิน.png";
-      link.href = canvas.toDataURL("image/png");
-      link.click();
     }
 
     function shareReceipt() {
@@ -365,9 +348,9 @@
           const item = [new ClipboardItem({[file.type]: file})];
 
           navigator.clipboard.write(item).then(() => {
-            alert("ใบเสร็จถูกคัดลอกไปที่คลิปบอร์ดแล้ว คุณสามารถกด Ctrl+V หรือแชร์ได้เลย!");
+            alert("คัดลอกใบเสร็จแล้ว คุณสามารถกด Ctrl+V หรือแชร์ได้เลย!");
           }).catch(err => {
-            alert("ไม่สามารถคัดลอกใบเสร็จได้ กรุณาดาวน์โหลดแทน");
+            alert("คัดลอกไม่ได้ กรุณาดาวน์โหลดแทน");
           });
         });
       });
