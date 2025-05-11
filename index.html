@@ -4,20 +4,15 @@
   <meta charset="UTF-8" />
   <title>✨ระบบขายหวย</title>
 
-  <!-- Responsive & PWA -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="ขายหวย">
-
-  <!-- Fonts -->
+  <!-- Responsive & Fonts -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Prompt :wght@400;500;700&display=swap');
     * {
       font-family: 'Prompt', sans-serif;
       box-sizing: border-box;
     }
+
     body {
       background-color: #f7f7f7;
       padding: 20px;
@@ -27,17 +22,18 @@
 
     .container {
       background: #fff;
-      padding: 20px;
-      border-radius: 0;
-      max-width: 100%;
-      width: 100%;
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
       text-align: center;
-      font-size: 22px;
+      font-size: 28px;
       color: #222;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     label {
@@ -48,20 +44,18 @@
 
     input, select {
       width: 100%;
-      padding: 14px;
-      font-size: 18px;
+      padding: 10px;
+      font-size: 16px;
       border-radius: 10px;
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       margin-bottom: 15px;
     }
 
     button {
-      width: 100%;
-      padding: 14px;
-      font-size: 18px;
+      padding: 10px;
+      font-size: 16px;
       border-radius: 10px;
       cursor: pointer;
-      margin-top: 10px;
     }
 
     .btn-green {
@@ -69,13 +63,11 @@
       color: white;
       border: none;
     }
-
     .btn-blue {
       background: #2196F3;
       color: white;
       border: none;
     }
-
     .btn-delete {
       background-color: #e74c3c;
       color: white;
@@ -96,16 +88,9 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      align-items: stretch;
       padding: 14px;
       background: #f9f9f9;
       border-radius: 10px;
-    }
-
-    .item-row select,
-    .item-row input,
-    .item-row button {
-      width: 100%;
     }
 
     /* Popup */
@@ -168,15 +153,13 @@
 
     .action-buttons button {
       width: 100%;
-      padding: 14px;
-      font-size: 18px;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h1>✨วันนี้รวย....</h1>
+    <h1>✨วันนี้รวย</h1>
 
     <div class="form-group">
       <label for="lotteryDate">งวดประจำวันที่</label>
@@ -233,7 +216,25 @@
       btn.parentElement.remove();
     }
 
-    function submitAll() {
+    // ตรวจสอบว่าเลขซ้ำหรือไม่
+    function isDuplicated(number) {
+      return new Set(number).size !== number.length;
+    }
+
+    // ปรับรูปแบบเลขโต๊ด
+    function formatNumberWithMultiplier(type, number, amount) {
+      if (!type.includes("โต๊ด")) return number;
+
+      const duplicated = isDuplicated(number);
+      const multiplier = duplicated ? 3 : 6;
+      const pricePerUnit = (amount / multiplier).toFixed(0);
+
+      return `${number} 
+        <span style="color: blue;">x${multiplier}</span> 
+        <span style="color: red;">(ตัวละ ${pricePerUnit} บาท)</span>`;
+    }
+
+    async function submitAll() {
       const dateInput = document.getElementById("lotteryDate").value;
       const buyerName = document.getElementById("buyerName").value;
 
@@ -261,11 +262,12 @@
           }
 
           totalAmount += amount;
+
+          const formattedNumber = formatNumberWithMultiplier(type, number, amount);
           receiptHTML += `<p><strong>${type}</strong></p>`;
-          receiptHTML += `<p>เลข ${number}</p>`;
+          receiptHTML += `<p>เลข ${formattedNumber}</p>`;
           receiptHTML += `<p>จำนวน ${amount} บาท</p>`;
           receiptHTML += `<hr>`;
-
           dataToSave.push({
             date: thaiDate,
             name: buyerName,
@@ -275,7 +277,7 @@
           });
         });
 
-        // สร้าง HTML ใบเสร็จพร้อมไอคอนและข้อความ "บันทึกสำเร็จ!"
+        // สร้าง HTML ใบเสร็จ
         const iconStyle = `
           display: flex;
           align-items: center;
@@ -290,26 +292,27 @@
         `;
 
         const headerHTML = `
-          <div style="text-align:center; margin-bottom: 20px;">
+          <div style="text-align:center;">
             <div style="${iconStyle}">✓</div>
-            <h3 style="margin-top: 10px;">บันทึกการสั่งซื้อ!</h3>
+            <h3 style="margin-top:10px;">บันทึกการสั่งซื้อ!</h3>
           </div>
+          <hr style="border-top: 1px dashed #ccc; margin: 20px 0;">
         `;
 
         const footerHTML = `
           <p style="font-weight:bold; color:#e67e22; text-align:center;">รวมทั้งหมด <span>${totalAmount}</span> บาท</p>
+          <p style="text-align:center; font-weight:normal; font-style: italic;">ผู้ซื้อ <span style="font-weight: normal; font-style: normal;">${buyerName}</span></p>
           <p style="color:#2ecc71; font-weight:bold; text-align:center;">ขอให้โชคดี 🌟✨</p>
         `;
 
         const fullReceiptHTML = `
           ${headerHTML}
-          <p><strong>ผู้ซื้อ</strong> <span>${buyerName}</span></p>
-          <p><strong>งวดประจำวันที่</strong> <span>${thaiDate}</span></p>
+          <p style="text-align:center;"><strong>งวดประจำวันที่</strong> ${thaiDate}</p>
+          <hr style="border-top: 1px dashed #ccc; margin: 15px 0;">
           ${receiptHTML}
           ${footerHTML}
         `;
 
-        // แสดงใบเสร็จใน popup
         const receiptDiv = document.getElementById("receipt");
         receiptDiv.innerHTML = fullReceiptHTML;
 
@@ -347,16 +350,15 @@
     async function downloadReceipt() {
       const receiptDiv = document.getElementById("receipt");
 
-      const canvas = document.createElement("canvas");
-      html2canvas(receiptDiv, {
+      const canvas = await html2canvas(receiptDiv, {
         backgroundColor: "#fff",
         scale: 2
-      }).then(canvas => {
-        const link = document.createElement("a");
-        link.download = "ใบเสร็จรับเงิน.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
       });
+
+      const link = document.createElement("a");
+      link.download = "ใบเสร็จรับเงิน.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
     }
 
     function shareReceipt() {
@@ -369,8 +371,8 @@
           const item = [new ClipboardItem({[file.type]: file})];
 
           navigator.clipboard.write(item).then(() => {
-            alert("ใบเสร็จถูกคัดลอกไปที่คลิปบอร์ดแล้ว คุณสามารถกด Ctrl+V หรือแชร์ได้เลย!");
-          }).catch(err => {
+            alert("คัดลอกใบเสร็จแล้ว คุณสามารถกด Ctrl+V หรือแชร์ได้เลย!");
+          }).catch(() => {
             alert("ไม่สามารถคัดลอกใบเสร็จได้ กรุณาใช้ปุ่มดาวน์โหลดแทน");
           });
         });
