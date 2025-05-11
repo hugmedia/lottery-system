@@ -1,13 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>วันนี้รวย...</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <title>บันทึกรายการหวย</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Prompt :wght@400;500;700&display=swap');
     * {
       font-family: 'Prompt', sans-serif;
       box-sizing: border-box;
@@ -23,7 +20,6 @@
       border-radius: 15px;
       max-width: 600px;
       margin: auto;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
     h1 {
       text-align: center;
@@ -32,32 +28,25 @@
       margin-bottom: 30px;
     }
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     label {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 5px;
       font-weight: 500;
     }
     input, select {
       width: 100%;
-      padding: 14px;
+      padding: 10px;
       font-size: 16px;
       border-radius: 10px;
       border: 1px solid #ddd;
     }
-    .row-split {
-      display: flex;
-      gap: 15px;
-    }
-    .row-split .form-group {
-      flex: 1;
-    }
+
     button {
-      padding: 14px;
-      font-size: 18px;
+      padding: 10px 16px;
+      font-size: 16px;
       border-radius: 10px;
-      width: 100%;
       cursor: pointer;
     }
     .btn-green {
@@ -65,12 +54,51 @@
       color: white;
       border: none;
     }
+    .btn-blue {
+      background: #2196F3;
+      color: white;
+      border: none;
+    }
+
+    /* Button ลบ */
+    .btn-delete {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      font-size: 14px;
+      padding: 8px 10px;
+      height: 36px;
+    }
+
+    /* Items List */
+    .items-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .item-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 40px;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      background: #f9f9f9;
+      border-radius: 10px;
+    }
+
+    .item-row select,
+    .item-row input {
+      margin: 0;
+    }
+
+    /* Popup */
     #popup {
       display: none;
       position: fixed;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      background: white;
+      background: #ffffff;
       border-radius: 15px;
       padding: 40px;
       box-shadow: 0 6px 30px rgba(0,0,0,0.2);
@@ -79,165 +107,261 @@
       max-width: 95vw;
       width: 500px;
     }
-    .check-icon {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background-color: #4CAF50;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 36px;
-      margin: 0 auto 20px auto;
+
+    /* Receipt Design */
+    #receipt {
+      text-align: left;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-top: 10px;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
-    .hide-when-download {
+
+    #receipt p {
+      margin: 6px 0;
+      color: #333;
+    }
+
+    #receipt hr {
+      border: 0;
+      border-top: 1px dashed #ccc;
+      margin: 15px 0;
+    }
+
+    #receipt .total {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #e67e22;
+      text-align: center;
+    }
+
+    .action-buttons {
       margin-top: 20px;
       display: flex;
       gap: 10px;
       justify-content: center;
+      flex-wrap: wrap;
     }
-    .btn-blue {
-      background: #2196F3;
-      color: white;
-      border: none;
-      padding: 14px;
-      font-size: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    #closePopup {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      cursor: pointer;
-      font-size: 20px;
-      display: block;
-    }
-    .hide-during-download {
-      display: block;
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .item-row {
+        grid-template-columns: 1fr 1fr 1fr 36px;
+      }
+
+      .item-row select,
+      .item-row input {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      button {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+
+      #receipt {
+        font-size: 15px;
+      }
     }
   </style>
 </head>
 <body>
+
   <div class="container">
-    <h1>วันนี้รวย...</h1>
-    <form id="lotteryForm">
-      <div class="form-group">
-        <label>งวดประจำวันที่</label>
-        <input type="date" id="lotteryDate" required>
-      </div>
-      <div class="form-group">
-        <label>ประเภทหวย</label>
-        <select id="lotteryType" required>
-          <option value="">เลือกประเภท</option>
-          <option value="หัว-ท้าย (รางวัลที่ 1)">หัว-ท้าย (รางวัลที่ 1)</option>
-          <option value="หัว (3 ตัวหน้า รางวัลที่ 1)">หัว (3 ตัวหน้า รางวัลที่ 1)</option>
-          <option value="ท้าย (3 ตัวหลัง รางวัลที่ 1)">ท้าย (3 ตัวหลัง รางวัลที่ 1)</option>
-          <option value="2 ตัว บน-ล่าง">2 ตัว บน-ล่าง</option>
-          <option value="2 ตัว บน">2 ตัว บน</option>
-        </select>
-      </div>
-      <div class="row-split">
-        <div class="form-group">
-          <label>ตัวเลข</label>
-          <input type="text" id="numbers" required>
-        </div>
-        <div class="form-group">
-          <label>จำนวนเงิน</label>
-          <input type="text" id="amount" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>ชื่อผู้ซื้อ</label>
-        <input type="text" id="buyerName" required>
-      </div>
-      <button class="btn-green" type="submit">บันทึกการซื้อ</button>
-    </form>
+    <h1>วันนี้รวย....</h1>
+
+    <div class="form-group">
+      <label for="lotteryDate">งวดประจำวันที่</label>
+      <input type="date" id="lotteryDate" required>
+    </div>
+
+    <div class="form-group">
+      <label for="buyerName">ชื่อผู้ซื้อ</label>
+      <input type="text" id="buyerName" placeholder="เช่น Pichet" required>
+    </div>
+
+    <div class="items-container" id="items-container"></div>
+
+    <button class="btn-blue" onclick="addItem()">+ เพิ่มรายการ</button>
+    <button class="btn-green" style="margin-top: 20px;" onclick="submitAll()">บันทึกการสั่งซื้อทั้งหมด</button>
   </div>
 
+  <!-- Popup -->
   <div id="popup">
-    <div class="check-icon">✓</div>
-    <div id="closePopup" class="hide-during-download" onclick="resetForm()">❌</div>
-    <div id="popupContent"></div>
-    <div class="hide-when-download">
-      <button class="btn-green" onclick="downloadPopupImage()">ดาวน์โหลดภาพ</button>
-      <button class="btn-blue" onclick="sharePopupImage()">แชร์</button>
+    <div id="receipt"></div>
+
+    <div class="action-buttons">
+      <button class="btn-blue" onclick="downloadReceipt()">ดาวน์โหลดใบเสร็จ</button>
+      <button class="btn-blue" onclick="shareReceipt()">แชร์ในไลน์/เมสเสจ</button>
+      <button class="btn-green" onclick="closeReceipt()">ปิด</button>
     </div>
   </div>
 
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js "></script>
   <script>
-    const popup = document.getElementById("popup");
-    const popupContent = document.getElementById("popupContent");
-    const form = document.getElementById("lotteryForm");
-    const closeBtn = document.getElementById("closePopup");
+    function addItem() {
+      const container = document.getElementById("items-container");
 
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      const date = new Date(document.getElementById("lotteryDate").value).toLocaleDateString('th-TH');
-      const type = document.getElementById("lotteryType").value;
-      const number = document.getElementById("numbers").value;
-      const amount = document.getElementById("amount").value;
-      const buyer = document.getElementById("buyerName").value;
-      const timestamp = new Date().toLocaleString("th-TH");
-
-      const payload = { lotteryDate: date, lotteryType: type, numbers: number, amount: amount, buyerName: buyer, timestamp: timestamp };
-
-      popupContent.innerHTML = `
-        <h3>บันทึกการซื้อสำเร็จ</h3>
-        <p><strong>งวดประจำวันที่ :</strong> ${payload.lotteryDate}</p>
-        <p><strong>ประเภท :</strong> ${payload.lotteryType}</p>
-        <p><strong>เลข :</strong> ${payload.numbers}</p>
-        <p><strong>จำนวน :</strong> ${payload.amount} บาท</p>
-        <p><strong>ผู้ซื้อ :</strong> ${payload.buyerName}</p>
-        <p style="margin-top:15px; font-weight: 500; color: #4CAF50;">ขอให้รวยๆ ลุ้นกันเย็นนี้! ✨</p>
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "item-row";
+      itemDiv.innerHTML = `
+        <select required>
+          <option value="">เลือกประเภท</option>
+          <option value="2 ตัว (บน)">2 ตัว (บน)</option>
+          <option value="2 ตัว (ล่าง)">2 ตัว (ล่าง)</option>
+          <option value="3 ตัวหัว (3 ตัวหน้า รางวัลที่1)">3 ตัวหัว (3 ตัวหน้า รางวัลที่1)</option>
+          <option value="3 ตัวท้าย (3 ตัวท้าย รางวัลที่1)">3 ตัวท้าย (3 ตัวท้าย รางวัลที่1)</option>
+          <option value="3 ตัวโต๊ดหัว X3X6 (รางวัลที่1)">3 ตัวโต๊ดหัว X3X6 (รางวัลที่1)</option>
+          <option value="3 ตัวโต๊ดท้าย X3X6 (รางวัลที่1)">3 ตัวโต๊ดท้าย X3X6 (รางวัลที่1)</option>
+        </select>
+        <input type="text" placeholder="เลข" required>
+        <input type="number" placeholder="จำนวนเงิน" required>
+        <button class="btn-delete" onclick="removeItem(this)">ลบ</button>
       `;
-      popup.style.display = "block";
-
-      fetch("https://script.google.com/macros/s/AKfycbyDPjnGQzW-rSlLGvxS20WwR8GkBmUy8362SLKKiT2uBPUV27cjbqZp0yx2yf8rdW3V/exec", {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-    });
-
-    function resetForm() {
-      form.reset();
-      popup.style.display = "none";
+      container.appendChild(itemDiv);
     }
 
-    function downloadPopupImage() {
-      toggleUI(false);
-      html2canvas(popup).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'lottery-info.png';
-        link.href = canvas.toDataURL();
-        link.click();
-        toggleUI(true);
-        resetForm();
-      });
+    function removeItem(btn) {
+      btn.parentElement.remove();
     }
 
-    function sharePopupImage() {
-      toggleUI(false);
-      html2canvas(popup).then(canvas => {
-        canvas.toBlob(blob => {
-          const file = new File([blob], 'lottery-info.png', { type: 'image/png' });
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            navigator.share({ title: 'บันทึกหวยของฉัน', text: 'เฮงๆ รวยๆ ค้าบบบ!', files: [file] });
-          } else {
-            alert('อุปกรณ์ของคุณไม่รองรับการแชร์ไฟล์ภาพโดยตรง');
+    function submitAll() {
+      const dateInput = document.getElementById("lotteryDate").value;
+      const buyerName = document.getElementById("buyerName").value;
+
+      if (!dateInput || !buyerName) {
+        alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+        return;
+      }
+
+      const thaiDate = new Date(dateInput).toLocaleDateString('th-TH', {year: 'numeric', month: 'long', day: 'numeric'});
+      const rows = document.querySelectorAll(".item-row");
+
+      let totalAmount = 0;
+      let receiptHTML = '';
+      let dataToSave = [];
+
+      try {
+        rows.forEach(row => {
+          const inputs = row.querySelectorAll("input, select");
+          const type = inputs[0].value;
+          const number = inputs[1].value.trim();
+          const amount = parseFloat(inputs[2].value.trim());
+
+          if (!type || !number || isNaN(amount)) {
+            throw new Error("กรุณากรอกข้อมูลในทุกช่องให้ครบถ้วน");
           }
-          toggleUI(true);
-          resetForm();
+
+          totalAmount += amount;
+          receiptHTML += `<p><strong>${type}</strong></p>`;
+          receiptHTML += `<p>เลข ${number}</p>`;
+          receiptHTML += `<p>จำนวน ${amount} บาท</p>`;
+          receiptHTML += `<hr>`;
+          dataToSave.push({
+            date: thaiDate,
+            name: buyerName,
+            type,
+            number,
+            amount
+          });
+        });
+
+        // สร้างใบเสร็จ
+        const iconStyle = `
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          background-color: #2ecc71;
+          color: white;
+          font-size: 30px;
+          margin: 0 auto 15px auto;
+        `;
+
+        const fullReceiptHTML = `
+          <div style="text-align:center; margin-bottom: 20px;">
+            <div style="${iconStyle}">✓</div>
+            <h3 style="margin-top: 10px;">บันทึกสำเร็จ!</h3>
+          </div>
+          <p><strong>ผู้ซื้อ</strong> <span>${buyerName}</span></p>
+          <p><strong>งวดประจำวันที่</strong> <span>${thaiDate}</span></p>
+          ${receiptHTML}
+          <p style="font-weight:bold; color:#e67e22; text-align:center;">รวมทั้งหมด <span>${totalAmount}</span> บาท</p>
+          <p style="color:#2ecc71; font-weight:bold; text-align:center;">ขอให้โชคดี 🌟✨</p>
+        `;
+
+        // แสดงใบเสร็จ
+        const receiptDiv = document.getElementById("receipt");
+        receiptDiv.innerHTML = fullReceiptHTML;
+
+        // ส่งไป Google Sheets
+        fetch("https://script.google.com/macros/s/AKfycbzw0nSTYw2BJOpznxLD8DNyEZDZC_b5VsuTvSz-jG3Xv-GTO8nMVCAONX1n9LFqGvlW/exec", {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(dataToSave)
+        }).then(() => {
+          showPopup();
+        }).catch(err => {
+          console.error("Error:", err);
+          alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
+        });
+
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
+    function showPopup() {
+      document.getElementById("popup").style.display = "block";
+    }
+
+    function closeReceipt() {
+      document.getElementById("popup").style.display = "none";
+      document.getElementById("lotteryDate").value = "";
+      document.getElementById("buyerName").value = "";
+      document.getElementById("items-container").innerHTML = "";
+    }
+
+    async function downloadReceipt() {
+      const receiptDiv = document.getElementById("receipt");
+
+      const canvas = await html2canvas(receiptDiv, {
+        backgroundColor: "#fff",
+        scale: 2
+      });
+
+      const link = document.createElement("a");
+      link.download = "ใบเสร็จรับเงิน.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+
+    function shareReceipt() {
+      html2canvas(document.getElementById("receipt"), {
+        backgroundColor: "#fff",
+        scale: 2
+      }).then(canvas => {
+        canvas.toBlob(blob => {
+          const file = new File([blob], "ใบเสร็จรับเงิน.png", {type: "image/png"});
+          const item = [new ClipboardItem({[file.type]: file})];
+
+          navigator.clipboard.write(item).then(() => {
+            alert("ใบเสร็จถูกคัดลอกไปที่คลิปบอร์ดแล้ว คุณสามารถกด Ctrl+V หรือแชร์ได้เลย!");
+          }).catch(err => {
+            alert("ไม่สามารถคัดลอกใบเสร็จได้ กรุณาใช้ปุ่มดาวน์โหลดแทน");
+          });
         });
       });
-    }
-
-    function toggleUI(show) {
-      document.querySelectorAll('.hide-when-download').forEach(el => el.style.display = show ? 'flex' : 'none');
-      closeBtn.style.display = show ? 'block' : 'none';
     }
   </script>
 </body>
