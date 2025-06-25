@@ -201,31 +201,31 @@
       <h2 class="text-xl font-medium mb-4 text-center text-gray-700">เลือกกรอบรูปภาพ</h2>
       <div class="flex flex-wrap justify-center gap-3">
         <div class="frame-option rounded-lg p-2 text-center" data-frame="MAA">
-          <img src="https://hugmediacreation.com/wp-content/uploads/2025/06/MASTER-MULTILINE-Award.png" alt="MAA" class="w-20 h-20 object-contain mx-auto">
+          <img src="https://hugmediacreation.com/photo/MASTER%20MULTILINE%20Award.png" alt="MAA" class="w-20 h-20 object-contain mx-auto">
           <p class="text-sm font-medium mt-1 text-gray-800">MAA</p>
         </div>
         <div class="frame-option rounded-lg p-2 text-center" data-frame="MFA">
-          <img src="https://hugmediacreation.com/wp-content/uploads/2025/06/MASTER-FIRM-Award.png" alt="MFA" class="w-20 h-20 object-contain mx-auto">
+          <img src="https://hugmediacreation.com/photo/MASTER%20FIRM%20Award.png" alt="MFA" class="w-20 h-20 object-contain mx-auto">
           <p class="text-sm font-medium mt-1  text-gray-800">MFA</p>
         </div>
         <div class="frame-option rounded-lg p-2 text-center" data-frame="MMA">
-          <img src="https://hugmediacreation.com/wp-content/uploads/2025/06/MASTER-AGENCY-Award.png" alt="MMA" class="w-20 h-20 object-contain mx-auto">
+          <img src="https://hugmediacreation.com/photo/MASTER%20AGENCY%20Award.png" alt="MMA" class="w-20 h-20 object-contain mx-auto">
           <p class="text-sm font-medium mt-1 text-gray-800">MMA</p>
         </div>
         <div class="frame-option rounded-lg p-2 text-center" data-frame="IMA">
-          <img src="https://hugmediacreation.com/wp-content/uploads/2025/06/International-Management-Award.png" alt="IMA" class="w-20 h-20 object-contain mx-auto">
+          <img src="https://hugmediacreation.com/photo/International%20Management%20Award.png" alt="IMA" class="w-20 h-20 object-contain mx-auto">
           <p class="text-sm font-medium mt-1 text-gray-800">IMA</p>
         </div>
         <div class="frame-option rounded-lg p-2 text-center" data-frame="FLA">
-          <img src="https://hugmediacreation.com/wp-content/uploads/2025/06/Frontline-Leader-Awards.png" alt="FLA" class="w-20 h-20 object-contain mx-auto">
+          <img src="https://hugmediacreation.com/photo/Frontline%20Leader%20Awards.png" alt="FLA" class="w-20 h-20 object-contain mx-auto">
           <p class="text-sm font-medium mt-1 text-gray-800">FLA</p>
         </div>
         <div class="frame-option rounded-lg p-2 text-center" data-frame="ERA">
-          <img src="https://hugmediacreation.com/wp-content/uploads/2025/06/Excellence-Recruitment-Award.png" alt="ERA" class="w-20 h-20 object-contain mx-auto">
+          <img src="https://hugmediacreation.com/photo/Excellence%20Recruitment%20Award.png" alt="ERA" class="w-20 h-20 object-contain mx-auto">
           <p class="text-sm font-medium mt-1 text-gray-800">ERA</p>
         </div>
         <div class="frame-option rounded-lg p-2 text-center" data-frame="COE">
-          <img src="https://hugmediacreation.com/wp-content/uploads/2025/06/Circle-of-Excellence-Award.png" alt="COE" class="w-20 h-20 object-contain mx-auto">
+          <img src="https://hugmediacreation.com/photo/Circle%20of%20Excellence%20Award.png" alt="COE" class="w-20 h-20 object-contain mx-auto">
           <p class="text-sm font-medium mt-1 text-gray-800">COE</p>
         </div>
       </div>
@@ -279,7 +279,7 @@
         
         <button id="downloadBtn" class="w-full bg-gradient-to-r from-purple-800 to-pink-600 hover:from-purple-700 hover:to-pink-500 text-white py-3 px-6 rounded-lg font-medium flex items-center justify-center btn disabled:opacity-50 disabled:cursor-not-allowed mb-3" disabled>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 0 003 3h10a3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 0 003 3h10a3 0 003-3v-1m-4-8l-4-4m0 0l-4 4m4-4v12" />
           </svg>
           ดาวน์โหลดรูปโปรไฟล์
         </button>
@@ -350,25 +350,25 @@
       const loadingOverlay = document.getElementById('loadingOverlay');
       const previewContainer = document.getElementById('preview'); // The div containing both images
 
-      // Frame URLs
+      // Frame URLs (UPDATED WITH NEW PATHS)
       const frameUrls = {
-        'MAA': 'https://hugmediacreation.com/wp-content/uploads/2025/06/MASTER-MULTILINE-Award.png',
-        'MFA': 'https://hugmediacreation.com/wp-content/uploads/2025/06/MASTER-FIRM-Award.png',
-        'MMA': 'https://hugmediacreation.com/wp-content/uploads/2025/06/MASTER-AGENCY-Award.png',
-        'IMA': 'https://hugmediacreation.com/wp-content/uploads/2025/06/International-Management-Award.png',
-        'FLA': 'https://hugmediacreation.com/wp-content/uploads/2025/06/Frontline-Leader-Awards.png',
-        'ERA': 'https://hugmediacreation.com/wp-content/uploads/2025/06/Excellence-Recruitment-Award.png',
-        'COE': 'https://hugmediacreation.com/wp-content/uploads/2025/06/Circle-of-Excellence-Award.png'
+        'MAA': 'https://hugmediacreation.com/photo/MASTER%20MULTILINE%20Award.png',
+        'MFA': 'https://hugmediacreation.com/photo/MASTER%20FIRM%20Award.png',
+        'MMA': 'https://hugmediacreation.com/photo/MASTER%20AGENCY%20Award.png',
+        'IMA': 'https://hugmediacreation.com/photo/International%20Management%20Award.png',
+        'FLA': 'https://hugmediacreation.com/photo/Frontline%20Leader%20Awards.png',
+        'ERA': 'https://hugmediacreation.com/photo/Excellence%20Recruitment%20Award.png',
+        'COE': 'https://hugmediacreation.com/photo/Circle%20of%20Excellence%20Award.png'
       };
       
       // State
       let selectedFrame = null;
-      let imageLoaded = false;
-      let frameLoaded = false; // Track if the frame image is loaded
+      let userImageLoaded = false; 
+      let frameImageLoaded = false; 
       
       // Function to check if both images are loaded for download enablement
       function checkDownloadAvailability() {
-        downloadBtn.disabled = !(imageLoaded && selectedFrame && frameLoaded);
+        downloadBtn.disabled = !(userImageLoaded && selectedFrame && frameImageLoaded);
       }
 
       // Trigger file input when the upload button is clicked
@@ -387,7 +387,7 @@
             userImagePreview.onload = function() {
               placeholderText.classList.add('hidden');
               userImagePreview.classList.remove('hidden');
-              imageLoaded = true;
+              userImageLoaded = true;
               // Reset sliders to default when a new image is loaded
               scaleSlider.value = 100;
               xPosSlider.value = 0;
@@ -397,7 +397,7 @@
             };
             userImagePreview.onerror = function() {
               alert('เกิดข้อผิดพลาดในการโหลดรูปภาพของคุณ กรุณาลองใหม่');
-              imageLoaded = false;
+              userImageLoaded = false;
               checkDownloadAvailability();
             };
             userImagePreview.src = e.target.result;
@@ -407,7 +407,7 @@
           selectedFileName.textContent = ''; // Clear file name if no file selected
           userImagePreview.classList.add('hidden');
           placeholderText.classList.remove('hidden');
-          imageLoaded = false;
+          userImageLoaded = false;
           checkDownloadAvailability();
         }
       });
@@ -422,15 +422,16 @@
           
           selectedFrame = frameId;
           
-          // Load frame image for preview and set frameLoaded flag
+          // Load frame image for preview and set frameImageLoaded flag
           frameImagePreview.onload = function() {
             frameImagePreview.classList.remove('hidden');
-            frameLoaded = true;
+            frameImageLoaded = true;
             checkDownloadAvailability();
           };
           frameImagePreview.onerror = function() {
-            alert('เกิดข้อผิดพลาดในการโหลดกรอบรูป กรุณาลองใหม่');
-            frameLoaded = false;
+            console.error('Failed to load frame image:', frameUrls[frameId]);
+            alert('เกิดข้อผิดพลาดในการโหลดกรอบรูป กรุณาลองใหม่ หรือตรวจสอบการตั้งค่า CORS ของเซิร์ฟเวอร์รูปภาพกรอบ');
+            frameImageLoaded = false;
             checkDownloadAvailability();
           };
           frameImagePreview.src = frameUrls[frameId];
@@ -439,7 +440,7 @@
       
       // Update image position and scale for the PREVIEW
       function updateImagePosition() {
-        if (!imageLoaded) return;
+        if (!userImageLoaded) return; 
         
         const scale = scaleSlider.value / 100;
         const xPos = parseFloat(xPosSlider.value);
@@ -456,7 +457,7 @@
       
       // Download functionality using html2canvas
       downloadBtn.addEventListener('click', function() {
-        if (!imageLoaded || !selectedFrame || !frameLoaded) {
+        if (!userImageLoaded || !selectedFrame || !frameImageLoaded) {
           alert('โปรดอัปโหลดรูปภาพและเลือกกรอบก่อนดาวน์โหลด');
           return;
         }
@@ -467,93 +468,108 @@
         const tempRenderDiv = document.createElement('div');
         tempRenderDiv.style.width = '1920px';
         tempRenderDiv.style.height = '1920px';
-        tempRenderDiv.style.position = 'absolute'; // Use absolute to place it off-screen
+        tempRenderDiv.style.position = 'absolute'; 
         tempRenderDiv.style.left = '-9999px';
         tempRenderDiv.style.top = '-9999px';
-        tempRenderDiv.style.overflow = 'hidden'; // Important for cropping
-        tempRenderDiv.style.backgroundColor = 'transparent'; // Ensure transparency if needed
+        tempRenderDiv.style.overflow = 'hidden'; 
+        tempRenderDiv.style.backgroundColor = 'transparent'; 
         document.body.appendChild(tempRenderDiv);
 
-        // Clone the current preview state to the temporary div
-        // Ensure that the cloned elements retain the computed styles (transform)
-        const clonedUserImage = userImagePreview.cloneNode(true);
-        const clonedFrameImage = frameImagePreview.cloneNode(true);
+        // Create new image elements for the high-res render
+        const hiResUserImage = new Image();
+        const hiResFrameImage = new Image();
 
-        // Apply high-res specific styles for the cloned elements if necessary
-        // The scale factor from 600px to 1920px is 1920/600 = 3.2
-        const scaleFactor = 1920 / 600;
+        hiResUserImage.src = userImagePreview.src;
+        hiResFrameImage.src = frameImagePreview.src;
 
-        // Apply current transform values to the cloned user image, scaled for 1920x1920
+        const scaleFactor = 1920 / 600; 
+
         const currentScale = parseFloat(scaleSlider.value) / 100;
         const currentXPos = parseFloat(xPosSlider.value);
         const currentYPos = parseFloat(yPosSlider.value);
 
-        // These adjustments need to be multiplied by the scaleFactor
-        clonedUserImage.style.transform = `translate(${currentXPos * scaleFactor}px, ${currentYPos * scaleFactor}px) scale(${currentScale})`;
-        clonedUserImage.style.transformOrigin = 'center center'; // Ensure origin is correct
+        hiResUserImage.style.transform = `translate(${currentXPos * scaleFactor}px, ${currentYPos * scaleFactor}px) scale(${currentScale})`;
+        hiResUserImage.style.transformOrigin = 'center center'; 
+        hiResUserImage.style.objectFit = 'cover'; 
 
-        // Ensure cloned images are visible and positioned correctly in temp div
-        clonedUserImage.style.width = '100%'; // Relative to tempRenderDiv
-        clonedUserImage.style.height = '100%';
-        clonedUserImage.style.left = '0';
-        clonedUserImage.style.top = '0';
-        clonedUserImage.style.position = 'absolute';
-        clonedUserImage.style.objectFit = 'cover'; // Maintain object-fit property
-        clonedUserImage.style.display = 'block'; // Ensure it's not hidden
+        hiResUserImage.style.width = '100%'; 
+        hiResUserImage.style.height = '100%';
+        hiResUserImage.style.left = '0';
+        hiResUserImage.style.top = '0';
+        hiResUserImage.style.position = 'absolute';
+        hiResUserImage.style.display = 'block'; 
 
-        clonedFrameImage.style.width = '100%'; // Relative to tempRenderDiv
-        clonedFrameImage.style.height = '100%';
-        clonedFrameImage.style.left = '0';
-        clonedFrameImage.style.top = '0';
-        clonedFrameImage.style.position = 'absolute';
-        clonedFrameImage.style.zIndex = '10'; // Ensure frame is on top
-        clonedFrameImage.style.display = 'block'; // Ensure it's not hidden
+        hiResFrameImage.style.width = '100%'; 
+        hiResFrameImage.style.height = '100%';
+        hiResFrameImage.style.left = '0';
+        hiResFrameImage.style.top = '0';
+        hiResFrameImage.style.position = 'absolute';
+        hiResFrameImage.style.zIndex = '10'; 
+        hiResFrameImage.style.display = 'block'; 
 
-        tempRenderDiv.appendChild(clonedUserImage);
-        tempRenderDiv.appendChild(clonedFrameImage);
+        tempRenderDiv.appendChild(hiResUserImage);
+        tempRenderDiv.appendChild(hiResFrameImage);
 
-        // Wait for images to render in the off-screen div (small delay helps html2canvas)
-        // Also ensure images are fully loaded within the tempRenderDiv context
+        // Set crossOrigin for the frame image for html2canvas
+        // UNCOMMENT THIS LINE IF THE SERVER HOSTING THE FRAMES (hugmediacreation.com) HAS PROPER CORS HEADERS SET.
+        // hiResFrameImage.crossOrigin = 'anonymous'; 
+
+        // Wait for images to load in the temporary div
         Promise.all([
             new Promise(resolve => {
-                if (clonedUserImage.complete) resolve();
-                else clonedUserImage.onload = resolve;
-                clonedUserImage.onerror = () => { console.error('Cloned user image load error'); resolve(); };
+                if (hiResUserImage.complete) {
+                    resolve();
+                } else {
+                    hiResUserImage.onload = resolve;
+                    hiResUserImage.onerror = () => {
+                        console.error('High-res user image load error. This might cause issues.');
+                        resolve(); 
+                    };
+                }
             }),
             new Promise(resolve => {
-                if (clonedFrameImage.complete) resolve();
-                else clonedFrameImage.onload = resolve;
-                clonedFrameImage.onerror = () => { console.error('Cloned frame image load error'); resolve(); };
+                if (hiResFrameImage.complete) {
+                    resolve();
+                } else {
+                    hiResFrameImage.onload = resolve;
+                    hiResFrameImage.onerror = () => {
+                        console.error('High-res frame image load error. This is likely a CORS issue if the frame is missing.');
+                        resolve(); 
+                    };
+                }
             })
         ]).then(() => {
             html2canvas(tempRenderDiv, {
                 width: 1920,
                 height: 1920,
-                scale: 1, // We are rendering at the target size (1920x1920), so scale is 1
+                scale: 1, 
                 backgroundColor: null,
-                useCORS: true, // Enable CORS support for images from other domains
-                allowTaint: true, // Allow tainting the canvas if CORS is an issue (will prevent pixel access)
-                logging: false, // Turn off excessive logging
-                imageTimeout: 15000 // Increase timeout for images
+                useCORS: true, 
+                allowTaint: true, 
+                logging: true,
+                imageTimeout: 15000 
             }).then(canvas => {
-                // Remove the temporary div
                 document.body.removeChild(tempRenderDiv);
                 
-                // Create download link
-                const link = document.createElement('a');
-                link.download = `profile-${selectedFrame}-gama-awards.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
+                try {
+                    const link = document.createElement('a');
+                    link.download = `profile-${selectedFrame}-gama-awards.png`;
+                    link.href = canvas.toDataURL('image/png'); 
+                    link.click();
+                } catch (e) {
+                    console.error('Error creating data URL or download link:', e);
+                    alert('ไม่สามารถดาวน์โหลดรูปภาพได้ อาจเกิดจากปัญหาด้านความปลอดภัย (CORS) โปรดตรวจสอบ Console (F12) หากปัญหานี้ยังคงอยู่ กรุณาดาวน์โหลดรูปกรอบทั้งหมดมาไว้ในโฟลเดอร์เดียวกันกับไฟล์ HTML ของคุณ');
+                }
                 
                 loadingOverlay.classList.add('hidden');
             }).catch(err => {
-                console.error('Error generating image:', err);
+                console.error('Error generating image with html2canvas:', err);
                 alert('เกิดข้อผิดพลาดในการสร้างรูปภาพ กรุณาลองใหม่อีกครั้ง');
-                document.body.removeChild(tempRenderDiv); // Clean up even on error
+                document.body.removeChild(tempRenderDiv); 
                 loadingOverlay.classList.add('hidden');
             });
         }).catch(err => {
-            console.error('Error loading cloned images:', err);
+            console.error('Error waiting for high-res images to load:', err);
             alert('เกิดข้อผิดพลาดในการเตรียมรูปภาพเพื่อดาวน์โหลด กรุณาลองใหม่อีกครั้ง');
             document.body.removeChild(tempRenderDiv);
             loadingOverlay.classList.add('hidden');
